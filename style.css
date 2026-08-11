@@ -146,11 +146,13 @@ body {
   text-transform: uppercase;
 }
 
-/* Hero Video Container (SEÇÃO 1 - INTACTA) */
+/* Hero Video Container (SEÇÃO 1 - HERO SECTION RESPONSIVA) */
 .hero-pin-container {
   position: relative;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
+  min-height: 560px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -165,9 +167,11 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   z-index: 0;
   pointer-events: none;
   filter: brightness(0.85) contrast(1.05);
+  transition: object-position 0.3s ease, transform 0.3s ease;
 }
 
 .hero-overlay {
@@ -177,6 +181,25 @@ body {
               linear-gradient(180deg, rgba(7, 7, 9, 0.6) 0%, transparent 40%, rgba(7, 7, 9, 0.95) 100%);
   z-index: 1;
   pointer-events: none;
+}
+
+/* Otimizações Responsivas Mobile para o Vídeo e Overlay da Hero */
+@media (max-width: 768px) {
+  .hero-pin-container {
+    height: 100dvh;
+  }
+  
+  .hero-video-bg {
+    object-fit: cover;
+    object-position: 50% 50%;
+    transform: scale(1.05);
+    filter: brightness(0.75) contrast(1.08);
+  }
+  
+  .hero-overlay {
+    background: radial-gradient(circle at center, rgba(7, 7, 9, 0.3) 0%, rgba(7, 7, 9, 0.85) 100%),
+                linear-gradient(180deg, rgba(7, 7, 9, 0.7) 0%, rgba(7, 7, 9, 0.4) 50%, rgba(7, 7, 9, 0.95) 100%);
+  }
 }
 
 /* Glassmorphism Mandatory Styles for Hero Cards & Widgets */
@@ -443,7 +466,113 @@ body {
   transform: translateY(0);
 }
 
-.closer-look-btn.active .slot-wrapper,
+/* Reset estrito de foco, contorno e bordas para textos internos dos botões da Seção 2 */
+.closer-look-btn .slot-machine-title,
+.closer-look-btn .slot-wrapper,
+.closer-look-btn .slot-wrapper span,
+.closer-look-btn *:focus,
+.closer-look-btn *:active,
+.closer-look-btn *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Glassmorphism App Pill Buttons for Category List (Seção 2) */
+.closer-look-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* Redução de Tamanho/Padding Exclusiva no Mobile (@media max-width 768px) */
+@media (max-width: 768px) {
+  .closer-look-btn {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .brand-logo-img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .slot-machine-title {
+    height: 18px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .slot-machine-title .slot-wrapper span {
+    height: 18px !important;
+  }
+
+  .category-arrow-btn {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 9px !important;
+  }
+}
+
+/* Compact & Slim Desktop Styling (@media min-width 769px) */
+@media (min-width: 769px) {
+  .closer-look-btn {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  .brand-logo-img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  .slot-machine-title {
+    height: 18px !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .slot-machine-title .slot-wrapper span {
+    height: 18px !important;
+  }
+
+  .category-arrow-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 10px !important;
+  }
+}
+
+.closer-look-btn:focus,
+.closer-look-btn:focus-visible {
+  outline: none !important;
+}
+
+.closer-look-btn:hover,
+.closer-look-btn:focus {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.closer-look-btn:active {
+  transform: scale(0.95) !important;
+}
+
+.closer-look-btn.active {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
 .closer-look-btn.active span {
   color: #FFFFFF !important;
   font-weight: 600 !important;
@@ -462,8 +591,6 @@ body {
 
 /* Brand Logo Images Alignment & Styling inside Buttons */
 .brand-logo-img {
-  width: 22px;
-  height: 22px;
   object-fit: contain;
   filter: brightness(0) invert(1);
   opacity: 0.75;
@@ -492,6 +619,12 @@ body {
   background-color: rgba(18, 18, 20, 0.8) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+@media (min-width: 769px) {
+  .apple-video-wrapper {
+    max-height: 415px !important;
+  }
 }
 
 .apple-video-wrapper video {
@@ -617,6 +750,12 @@ body {
 
 .btn-gold-pulse {
   position: relative;
+  width: fit-content !important;
+  max-width: 90% !important;
+  white-space: nowrap !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-self: center !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(40, 32, 15, 0.95) 100%) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
@@ -625,6 +764,29 @@ body {
   animation: goldPulseBreathing 2.8s infinite ease-in-out;
   transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .btn-gold-pulse {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    max-width: 95% !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .btn-gold-pulse {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    max-width: 90% !important;
+    font-size: 0.72rem !important;
+    white-space: nowrap !important;
+  }
 }
 
 /* Efeito Shimmer sutil passando ao longo do botão no ritmo da pulsação */

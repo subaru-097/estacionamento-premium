@@ -235,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
     buttons.forEach(button => {
       button.addEventListener('click', function (e) {
         e.preventDefault();
-        const textContent = this.innerText.replace(/\d+/g, '').replace('+', '').replace('↗', '').trim();
+        let rawText = (this.querySelector('.slot-wrapper span')?.innerText || this.innerText).replace(/\d+/g, '').replace('+', '').replace('↗', '').trim();
+        const textContent = rawText.split(/\s+/)[0] || rawText;
         const videoSrc = this.getAttribute('data-video') || videoMapping[textContent];
 
         if (videoSrc) {
